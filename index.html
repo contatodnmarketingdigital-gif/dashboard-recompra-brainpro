@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRAINPRO - Analise de Recompra por Curso</title>
+<title>BRAINPRO - Funil Estrategico: Entrada ate Pos-Graduacao</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
 :root{--bg:#0a0e1a;--card:#131a2e;--card2:#1a2340;--accent:#3b82f6;--accent2:#8b5cf6;--accent3:#06b6d4;--accent4:#f59e0b;--accent5:#10b981;--accent6:#ef4444;--text:#e8edf5;--muted:#7a8baa;--border:#1e2d4a;--glow:rgba(59,130,246,0.15)}
@@ -37,6 +37,35 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
 
+/* Priority Section Header */
+.priority-header{background:linear-gradient(135deg,rgba(139,92,246,.12),rgba(59,130,246,.08));border:1px solid rgba(139,92,246,.25);border-radius:12px;padding:20px 24px;margin-bottom:20px;position:relative;overflow:hidden}
+.priority-header::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;border-radius:2px}
+.priority-header.p1::before{background:linear-gradient(180deg,#10b981,#34d399)}
+.priority-header.p2::before{background:linear-gradient(180deg,#8b5cf6,#a78bfa)}
+.priority-header.p3::before{background:linear-gradient(180deg,#ef4444,#f87171)}
+.priority-header.p4::before{background:linear-gradient(180deg,#f59e0b,#fbbf24)}
+.priority-num{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;font-size:13px;font-weight:700;margin-right:8px}
+.priority-header h2{font-size:18px;font-weight:700;margin-bottom:4px;display:flex;align-items:center}
+.priority-header .desc{font-size:12px;color:var(--muted);line-height:1.6}
+
+/* Funnel Visual */
+.funnel-step{display:flex;align-items:center;gap:12px;padding:14px 16px;background:var(--card2);border:1px solid var(--border);border-radius:10px;margin-bottom:8px;transition:transform .15s}
+.funnel-step:hover{transform:translateX(6px)}
+.funnel-step .step-num{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
+.funnel-step .step-info{flex:1}
+.funnel-step .step-name{font-size:14px;font-weight:600}
+.funnel-step .step-meta{font-size:11px;color:var(--muted)}
+.funnel-step .step-val{text-align:right;min-width:80px}
+.funnel-step .step-val .big{font-size:18px;font-weight:700}
+.funnel-step .step-val .small{font-size:10px;color:var(--muted)}
+.funnel-arrow{text-align:center;color:var(--muted);font-size:18px;margin:2px 0}
+
+/* Conversion Path */
+.conv-path{display:flex;align-items:center;gap:0;flex-wrap:wrap;padding:16px;background:var(--card2);border:1px solid var(--border);border-radius:10px;margin-bottom:12px}
+.conv-path .path-node{padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;text-align:center;min-width:100px}
+.conv-path .path-arrow{color:var(--accent4);font-size:16px;margin:0 6px}
+.conv-path .path-time{font-size:10px;color:var(--muted);margin:0 2px}
+
 /* Ranking Table */
 .rank-table{width:100%;border-collapse:collapse;font-size:12px}
 .rank-table th{text-align:left;padding:10px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border);font-weight:600}
@@ -51,6 +80,8 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .badge-warm{background:rgba(245,158,11,.15);color:#fbbf24}
 .badge-cool{background:rgba(59,130,246,.15);color:#60a5fa}
 .badge-cold{background:rgba(100,116,139,.15);color:#94a3b8}
+.badge-pg{background:rgba(139,92,246,.15);color:#a78bfa}
+.badge-entry{background:rgba(16,185,129,.15);color:#34d399}
 .medal{font-size:16px;margin-right:4px}
 
 /* Product Detail Cards */
@@ -83,54 +114,635 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(
 .insight-text{font-size:12px;color:var(--muted);line-height:1.7}
 .insight-action{margin-top:8px;padding:8px 12px;background:rgba(16,185,129,.08);border:1px solid rgba(16,185,129,.15);border-radius:6px;font-size:11px;color:#34d399}
 
+/* Comparison Table */
+.comp-table{width:100%;border-collapse:collapse;font-size:12px}
+.comp-table th{padding:10px 8px;font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:2px solid var(--border);font-weight:600;text-align:center}
+.comp-table th:first-child{text-align:left}
+.comp-table td{padding:12px 8px;border-bottom:1px solid rgba(30,45,74,.5);text-align:center}
+.comp-table td:first-child{text-align:left;font-weight:500}
+.comp-table tr:hover td{background:rgba(59,130,246,.04)}
+.comp-table .highlight{background:rgba(16,185,129,.08)}
+.comp-table .best{color:#34d399;font-weight:700}
+.comp-table .worst{color:#ef4444}
+
 canvas{max-height:280px}
 
-@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}.kpi-strip{grid-template-columns:repeat(2,1fr)}.prod-metrics{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:900px){.grid-2,.grid-3{grid-template-columns:1fr}.kpi-strip{grid-template-columns:repeat(2,1fr)}.prod-metrics{grid-template-columns:repeat(2,1fr)}.conv-path{flex-direction:column}.conv-path .path-arrow{transform:rotate(90deg)}}
 @media(max-width:600px){.kpi-strip{grid-template-columns:1fr}.container{padding:12px}.header{padding:16px}}
 </style>
 </head>
 <body>
 
 <div class="header">
-  <h1>Analise de Recompra por Curso</h1>
-  <p>BRAINPRO | Mapa completo de cross-sell, progressao na esteira + Analise tDCS + Pos-Graduacao | 1.263 clientes | Kiwify + Voomp + Eduzz</p>
+  <h1>Funil Estrategico: Do Produto de Entrada ate a Pos-Graduacao</h1>
+  <p>BRAINPRO | Analise de conversao, progressao na esteira e identificacao do melhor funil perpetuo | 1.263 clientes | Kiwify + Voomp + Eduzz</p>
 </div>
 
 <div class="container">
 
-<!-- KPIs -->
+<!-- KPIs ESTRATEGICOS DO FUNIL -->
 <div class="kpi-strip">
   <div class="kpi">
-    <div class="kpi-label">Curso Campeao de Recompra</div>
-    <div class="kpi-val" style="font-size:15px;color:#60a5fa">Neuromod. Nao-Invasiva</div>
-    <div class="kpi-sub">95 clientes recompraram (18,5%) — maior volume absoluto</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Maior Taxa de Recompra (%)</div>
-    <div class="kpi-val" style="color:#a78bfa">91,7%</div>
-    <div class="kpi-sub">Avaliacao e Biofeedback por VFC (22 de 24 clientes)</div>
-  </div>
-  <div class="kpi">
-    <div class="kpi-label">Melhor Porta de Entrada</div>
+    <div class="kpi-label">Melhor Produto de Entrada</div>
     <div class="kpi-val" style="font-size:15px;color:#34d399">Neuromod. Nao-Invasiva</div>
-    <div class="kpi-sub">R$30 ticket | alimenta TEA, Binaurais e Assinatura</div>
+    <div class="kpi-sub">513 compradores | R$30 | alimenta toda a esteira</div>
   </div>
   <div class="kpi">
-    <div class="kpi-label">Cross-sell mais Lucrativo</div>
-    <div class="kpi-val" style="font-size:15px;color:#fbbf24">TEA &rarr; Workshop TDAH</div>
-    <div class="kpi-sub">18 conversoes | R$311 ticket medio no destino</div>
+    <div class="kpi-label">Caminho mais Rapido ate PG</div>
+    <div class="kpi-val" style="font-size:14px;color:#a78bfa">DRY Neurofeedback &rarr; PG</div>
+    <div class="kpi-sub">Apenas 9 dias | 6 alunos converteram</div>
   </div>
   <div class="kpi">
-    <div class="kpi-label">Recompra mais Rapida</div>
-    <div class="kpi-val">17 <span style="font-size:12px;color:var(--muted)">dias</span></div>
-    <div class="kpi-sub">Biofeedback VFC &rarr; proximo curso</div>
+    <div class="kpi-label">Taxa Conversao para PG</div>
+    <div class="kpi-val" style="color:#34d399">96,3%</div>
+    <div class="kpi-sub">26 de 27 alunos PG tinham compra anterior</div>
   </div>
   <div class="kpi">
-    <div class="kpi-label">Curso sem Recompra</div>
-    <div class="kpi-val" style="font-size:15px;color:#f87171">Livre-se da Ansiedade</div>
-    <div class="kpi-sub">0% de recompra — ponto morto da esteira</div>
+    <div class="kpi-label">Funil Ideal Identificado</div>
+    <div class="kpi-val" style="font-size:12px;color:#fbbf24">Nao-Inv. &rarr; DRY &rarr; PG</div>
+    <div class="kpi-sub">R$30 &rarr; Eduzz &rarr; Pos-Graduacao em ~36 dias</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Cross-sell tDCS</div>
+    <div class="kpi-val" style="color:#22d3ee">82,8%</div>
+    <div class="kpi-sub">72 de 87 compraram outros produtos</div>
+  </div>
+  <div class="kpi">
+    <div class="kpi-label">Alunos Pos-Graduacao</div>
+    <div class="kpi-val" style="color:#a78bfa">27</div>
+    <div class="kpi-sub">matriculados via Eduzz | destino final da esteira</div>
   </div>
 </div>
+
+<!-- ================================================================= -->
+<!-- SECAO 1: PRODUTO DE ENTRADA (TOPO DE FUNIL) -->
+<!-- ================================================================= -->
+<div class="priority-header p1">
+  <h2><span class="priority-num" style="background:rgba(16,185,129,.2);color:#34d399">1</span> Produto de Entrada — Topo de Funil</h2>
+  <div class="desc">Qual curso abre mais o funil, gera mais volume e leva a compra mais rapida? Identificacao do produto perpetuo ideal.</div>
+</div>
+
+<div class="section">
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-title" style="color:#34d399">&#128202; Comparativo de Produtos de Entrada</div>
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Compradores</th>
+            <th>Ticket</th>
+            <th>Recompraram</th>
+            <th>Taxa</th>
+            <th>Tempo Recompra</th>
+            <th>Destino Principal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight">
+            <td><strong style="color:#34d399">&#11088; Neuromod. Nao-Invasiva</strong></td>
+            <td class="best">513</td>
+            <td>R$30</td>
+            <td class="best">95</td>
+            <td>18,5%</td>
+            <td>95d</td>
+            <td style="font-size:10px">Voomp(33) TEA(25) Binaurais(17)</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#8b5cf6">Curso TEA</strong></td>
+            <td>300</td>
+            <td>R$358</td>
+            <td>54</td>
+            <td>18,0%</td>
+            <td>92d</td>
+            <td style="font-size:10px">Workshop TDAH(18) Voomp(16)</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#3b82f6">Assinatura Voomp</strong></td>
+            <td>289</td>
+            <td>R$1.267</td>
+            <td>62</td>
+            <td>21,5%</td>
+            <td>-</td>
+            <td style="font-size:10px">Cross 5,2% (renovacao)</td>
+          </tr>
+          <tr>
+            <td><strong style="color:#06b6d4">Freq. Binaurais</strong></td>
+            <td>243</td>
+            <td>R$306</td>
+            <td>41</td>
+            <td>16,9%</td>
+            <td class="best">46d</td>
+            <td style="font-size:10px">TEA(25) Voomp(13)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div style="margin-top:12px;padding:10px;background:rgba(16,185,129,.06);border-radius:6px;font-size:11px;color:var(--muted)">
+        <strong style="color:#34d399">Veredicto:</strong> Nao-Invasiva (R$30) e o melhor produto de entrada: maior volume (513), maior recompra absoluta (95) e alimenta 3 destinos diferentes. Custo baixo = barreira minima de entrada.
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="color:#34d399">&#127919; Volume de Entrada vs. Progressao na Esteira</div>
+      <canvas id="entryFunnelChart"></canvas>
+      <div style="margin-top:12px;padding:10px;background:rgba(16,185,129,.06);border-radius:6px;font-size:11px;color:var(--muted)">
+        <strong style="color:#34d399">Leitura:</strong> Barra escura = total de compradores. Barra clara = quantos progrediram para outro produto. Nao-Invasiva lidera em ambos.
+      </div>
+    </div>
+  </div>
+
+  <!-- Eficiencia de cada porta de entrada -->
+  <div class="card" style="margin-top:16px">
+    <div class="card-title" style="color:#34d399">&#128176; Eficiencia como Porta de Entrada — Receita Gerada na Esteira</div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px">
+      <div style="padding:14px;background:rgba(16,185,129,.06);border-radius:8px;border-left:3px solid #10b981">
+        <div style="font-size:13px;font-weight:600;color:#34d399">&#11088; Neuromod. Nao-Invasiva</div>
+        <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div><div style="font-size:22px;font-weight:700;color:#10b981">513</div><div style="font-size:9px;color:var(--muted)">COMPRADORES</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#34d399">95</div><div style="font-size:9px;color:var(--muted)">RECOMPRARAM</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#22d3ee">R$30</div><div style="font-size:9px;color:var(--muted)">TICKET ENTRADA</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#fbbf24">R$19</div><div style="font-size:9px;color:var(--muted)">RETORNO POR R$1</div></div>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--muted)">Destinos: Voomp(33x) + TEA(25x) + Binaurais(17x) + Workshop(9x)</div>
+        <div style="margin-top:4px;font-size:10px;color:#34d399;font-weight:600">4 alunos chegaram a PG | 2 tambem na Kiwify PG</div>
+      </div>
+      <div style="padding:14px;background:rgba(6,182,212,.06);border-radius:8px;border-left:3px solid #06b6d4">
+        <div style="font-size:13px;font-weight:600;color:#22d3ee">Freq. Binaurais</div>
+        <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div><div style="font-size:22px;font-weight:700;color:#06b6d4">243</div><div style="font-size:9px;color:var(--muted)">COMPRADORES</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#22d3ee">41</div><div style="font-size:9px;color:var(--muted)">RECOMPRARAM</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#22d3ee">R$306</div><div style="font-size:9px;color:var(--muted)">TICKET ENTRADA</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#fbbf24">46d</div><div style="font-size:9px;color:var(--muted)">RECOMPRA RAPIDA</div></div>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--muted)">Destinos: TEA(25x) + Voomp(13x) | Recompra 2x mais rapida que TEA</div>
+        <div style="margin-top:4px;font-size:10px;color:#22d3ee;font-weight:600">3 alunos PG tinham Binaurais na Kiwify</div>
+      </div>
+      <div style="padding:14px;background:rgba(139,92,246,.06);border-radius:8px;border-left:3px solid #8b5cf6">
+        <div style="font-size:13px;font-weight:600;color:#a78bfa">Curso TEA</div>
+        <div style="margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div><div style="font-size:22px;font-weight:700;color:#8b5cf6">300</div><div style="font-size:9px;color:var(--muted)">COMPRADORES</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#a78bfa">54</div><div style="font-size:9px;color:var(--muted)">RECOMPRARAM</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#a78bfa">R$358</div><div style="font-size:9px;color:var(--muted)">TICKET ENTRADA</div></div>
+          <div><div style="font-size:22px;font-weight:700;color:#fbbf24">92d</div><div style="font-size:9px;color:var(--muted)">TEMPO RECOMPRA</div></div>
+        </div>
+        <div style="margin-top:8px;font-size:10px;color:var(--muted)">Destinos: Workshop TDAH(18x) + Voomp(16x) + Binaurais(7x)</div>
+        <div style="margin-top:4px;font-size:10px;color:#a78bfa;font-weight:600">5 alunos PG tinham TEA na Kiwify — maior feeder cross</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gargalo de conversao -->
+  <div class="insight" style="border-color:rgba(16,185,129,.2)">
+    <div class="insight-title" style="color:#34d399">&#128293; Gargalo Critico: 81,5% de Nao-Invasiva NAO Recompra</div>
+    <div class="insight-text">De 513 compradores de Nao-Invasiva, <strong>418 nao compram outro produto</strong>. Converter apenas 10% desses (42 clientes) para cursos de R$297-358 geraria <strong>R$12.000-15.000 de receita adicional imediata</strong>. Este e o maior ponto de alavancagem do funil.</div>
+    <div class="insight-action"><strong>Acao:</strong> Criar campanha segmentada para os 418 clientes "dormentes". Oferecer webinar gratuito de TEA/Binaurais como isca + cupom de 30% valido por 72h. Timing: disparar no dia 5 apos compra de Nao-Invasiva.</div>
+  </div>
+</div>
+
+<!-- ================================================================= -->
+<!-- SECAO 2: EVOLUCAO PARA POS-GRADUACAO (PRIORIDADE PRINCIPAL) -->
+<!-- ================================================================= -->
+<div class="priority-header p2">
+  <h2><span class="priority-num" style="background:rgba(139,92,246,.2);color:#a78bfa">2</span> Evolucao para Pos-Graduacao (VOOP) — PRIORIDADE PRINCIPAL</h2>
+  <div class="desc">Qual curso leva mais rapido a PG? Qual a sequencia de produtos? Qual o tempo medio? Qual a taxa de conversao? Objetivo: identificar o funil direto com alta conversao.</div>
+</div>
+
+<div class="section">
+  <div class="kpi-strip" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+    <div class="kpi" style="border-left:3px solid #8b5cf6">
+      <div class="kpi-label">Alunos PG (Eduzz)</div>
+      <div class="kpi-val" style="color:#a78bfa">27</div>
+      <div class="kpi-sub">matriculados na Pos-Graduacao via Eduzz</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #22c55e">
+      <div class="kpi-label">Com Compra Anterior</div>
+      <div class="kpi-val" style="color:#34d399">96,3%</div>
+      <div class="kpi-sub">26 de 27 compraram outro produto antes</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #3b82f6">
+      <div class="kpi-label">Feeder #1 (Volume)</div>
+      <div class="kpi-val" style="font-size:13px;color:#60a5fa">Ext. Vagal + DRY</div>
+      <div class="kpi-sub">6 alunos cada | 44,4% dos alunos PG</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #06b6d4">
+      <div class="kpi-label">Feeder Mais Rapido</div>
+      <div class="kpi-val" style="font-size:13px;color:#22d3ee">DRY Neurofeedback</div>
+      <div class="kpi-sub">apenas 9 dias ate PG! 6x mais rapido que Vagal</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #f59e0b">
+      <div class="kpi-label">Cross Kiwify &rarr; PG</div>
+      <div class="kpi-val" style="color:#fbbf24">8</div>
+      <div class="kpi-sub">29,6% dos alunos PG compraram na Kiwify</div>
+    </div>
+  </div>
+
+  <!-- Caminhos para PG -->
+  <div class="card">
+    <div class="card-title" style="color:#a78bfa">&#128640; Caminhos Identificados ate a Pos-Graduacao (do mais rapido ao mais lento)</div>
+
+    <!-- Caminho 1: DRY -->
+    <div class="conv-path" style="border-left:3px solid #22c55e">
+      <div style="min-width:90px;text-align:center"><span class="badge badge-entry" style="font-size:11px">RAPIDO</span><div style="font-size:10px;color:var(--muted);margin-top:2px">9 dias</div></div>
+      <div class="path-node" style="background:rgba(6,182,212,.15);color:#22d3ee">DRY Neurofeedback</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-time">9d</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-node" style="background:rgba(139,92,246,.2);color:#d8b4fe;font-weight:700">POS-GRADUACAO</div>
+      <div style="margin-left:auto;font-size:11px;color:#34d399;font-weight:600">6 alunos</div>
+    </div>
+
+    <!-- Caminho 2: TEA Kiwify -->
+    <div class="conv-path" style="border-left:3px solid #06b6d4">
+      <div style="min-width:90px;text-align:center"><span class="badge badge-cool" style="font-size:11px">24 DIAS</span><div style="font-size:10px;color:var(--muted);margin-top:2px">via Kiwify</div></div>
+      <div class="path-node" style="background:rgba(139,92,246,.15);color:#a78bfa">TEA (Kiwify)</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-time">24d</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-node" style="background:rgba(139,92,246,.2);color:#d8b4fe;font-weight:700">POS-GRADUACAO</div>
+      <div style="margin-left:auto;font-size:11px;color:#60a5fa;font-weight:600">3 alunos</div>
+    </div>
+
+    <!-- Caminho 3: Nao-Invasiva -->
+    <div class="conv-path" style="border-left:3px solid #10b981">
+      <div style="min-width:90px;text-align:center"><span class="badge badge-entry" style="font-size:11px">27 DIAS</span><div style="font-size:10px;color:var(--muted);margin-top:2px">entrada R$30</div></div>
+      <div class="path-node" style="background:rgba(16,185,129,.15);color:#34d399">Nao-Invasiva (R$30)</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-time">27d</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-node" style="background:rgba(139,92,246,.2);color:#d8b4fe;font-weight:700">POS-GRADUACAO</div>
+      <div style="margin-left:auto;font-size:11px;color:#34d399;font-weight:600">4 alunos</div>
+    </div>
+
+    <!-- Caminho 4: VFC -->
+    <div class="conv-path" style="border-left:3px solid #f59e0b">
+      <div style="min-width:90px;text-align:center"><span class="badge badge-warm" style="font-size:11px">55 DIAS</span></div>
+      <div class="path-node" style="background:rgba(245,158,11,.15);color:#fbbf24">Biofeedback VFC</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-time">55d</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-node" style="background:rgba(139,92,246,.2);color:#d8b4fe;font-weight:700">POS-GRADUACAO</div>
+      <div style="margin-left:auto;font-size:11px;color:#fbbf24;font-weight:600">3 alunos</div>
+    </div>
+
+    <!-- Caminho 5: Extensao Vagal -->
+    <div class="conv-path" style="border-left:3px solid #8b5cf6">
+      <div style="min-width:90px;text-align:center"><span class="badge badge-pg" style="font-size:11px">60 DIAS</span><div style="font-size:10px;color:var(--muted);margin-top:2px">maior volume</div></div>
+      <div class="path-node" style="background:rgba(139,92,246,.15);color:#a78bfa">Extensao Vagal</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-time">60d</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-node" style="background:rgba(139,92,246,.2);color:#d8b4fe;font-weight:700">POS-GRADUACAO</div>
+      <div style="margin-left:auto;font-size:11px;color:#a78bfa;font-weight:600">6 alunos</div>
+    </div>
+
+    <!-- Caminho 6: tDCS -->
+    <div class="conv-path" style="border-left:3px solid #ef4444">
+      <div style="min-width:90px;text-align:center"><span class="badge badge-hot" style="font-size:11px">80 DIAS</span></div>
+      <div class="path-node" style="background:rgba(239,68,68,.15);color:#f87171">tDCS</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-time">80d</div>
+      <div class="path-arrow">&#10132;</div>
+      <div class="path-node" style="background:rgba(139,92,246,.2);color:#d8b4fe;font-weight:700">POS-GRADUACAO</div>
+      <div style="margin-left:auto;font-size:11px;color:#f87171;font-weight:600">3 alunos</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <!-- Grafico: Produtos antes da PG -->
+    <div class="card">
+      <div class="card-title" style="color:#a78bfa">&#128200; Produtos Comprados ANTES da Pos-Graduacao (Eduzz)</div>
+      <canvas id="pgBeforeChart"></canvas>
+      <div style="margin-top:10px;padding:8px;background:rgba(139,92,246,.06);border-radius:6px;font-size:11px;color:var(--muted)">
+        <strong style="color:#a78bfa">Insight:</strong> 96,3% dos alunos PG compraram antes. Extensao Vagal (6x, 60d) e DRY Neurofeedback (6x, 9d) sao os maiores feeders. DRY e 6x mais rapido.
+      </div>
+    </div>
+
+    <!-- Funil de entrada PG -->
+    <div class="card">
+      <div class="card-title" style="color:#a78bfa">&#127919; Ranking de Produtos que Levam a PG</div>
+      <div id="pg-funnel-container"></div>
+    </div>
+  </div>
+
+  <!-- PG Cross-Platform -->
+  <div class="card" style="margin-top:16px">
+    <div class="card-title" style="color:#a78bfa">&#128260; Jornada ate a Pos-Graduacao — Visao Multiplataforma</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div>
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Produtos Eduzz que levam a PG</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Extensao Vagal</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">6 alunos</div></div>
+            <span style="font-size:10px;color:#a78bfa;min-width:40px">60d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">DRY Neurofeedback</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">6 alunos</div></div>
+            <span style="font-size:10px;color:#22d3ee;min-width:40px">9d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Neuromod. Nao-Invasiva</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:67%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">4</div></div>
+            <span style="font-size:10px;color:#f59e0b;min-width:40px">27d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">tDCS</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#ef4444,#f87171);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
+            <span style="font-size:10px;color:#ef4444;min-width:40px">80d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Biofeedback VFC</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
+            <span style="font-size:10px;color:#f59e0b;min-width:40px">55d</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Neuromod. no TEA</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#06b6d4,#22d3ee);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
+            <span style="font-size:10px;color:#06b6d4;min-width:40px">24d</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Produtos Kiwify dos Alunos PG (8 alunos)</div>
+        <div style="display:flex;flex-direction:column;gap:6px">
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Neuromod. no TEA</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">5 alunos</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Freq. Binaurais</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:linear-gradient(90deg,#06b6d4,#22d3ee);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Neuromod. Nao-Invasiva</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#10b981,#34d399);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">2</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Biofeedback VFC</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">1</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px">
+            <div style="flex:0 0 180px;font-size:11px">Workshop TDAH</div>
+            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">1</div></div>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding:8px;background:rgba(59,130,246,.06);border-radius:6px;font-size:10px;color:var(--muted)">
+          29,6% dos alunos PG ja compraram na Kiwify. TEA e Binaurais sao os cursos mais comuns entre futuros alunos PG.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Funil Ideal para PG -->
+  <div class="insight" style="margin-top:16px;border-color:rgba(139,92,246,.2)">
+    <div class="insight-title" style="color:#a78bfa">&#128640; Funis Ideais para Pos-Graduacao (Identificados pelos Dados)</div>
+    <div class="insight-text">
+      <strong style="color:#22c55e">&#9889; Funil RAPIDO (9 dias):</strong><br>
+      <span style="color:#06b6d4">DRY Neurofeedback</span> <span style="color:var(--muted)">&rarr; 9 dias &rarr;</span> <strong style="color:#a78bfa">POS-GRADUACAO</strong> — 6 alunos | caminho mais curto<br><br>
+      <strong style="color:#10b981">&#128171; Funil PERPETUO IDEAL (R$30 &rarr; PG):</strong><br>
+      <span style="color:#10b981">Nao-Invasiva (R$30, Kiwify)</span> <span style="color:var(--muted)">&rarr;</span>
+      <span style="color:#8b5cf6">TEA/Binaurais (Kiwify)</span> <span style="color:var(--muted)">&rarr;</span>
+      <span style="color:#06b6d4">DRY/Vagal (Eduzz)</span> <span style="color:var(--muted)">&rarr;</span>
+      <strong style="color:#a78bfa">POS-GRADUACAO</strong><br>
+      <span style="font-size:11px;color:var(--muted)">4 alunos Nao-Invasiva chegaram a PG + 5 TEA Kiwify + 3 Binaurais Kiwify</span><br><br>
+      <strong style="color:#f59e0b">&#128338; Funil VOLUME (60 dias):</strong><br>
+      <span style="color:#8b5cf6">Extensao Vagal</span> <span style="color:var(--muted)">&rarr; 60 dias &rarr;</span> <strong style="color:#a78bfa">POS-GRADUACAO</strong> — 6 alunos | caminho principal
+    </div>
+    <div class="insight-action"><strong>Acao Prioritaria:</strong> (1) Campanha "Da Especializacao a PG" para alunos DRY no dia 5 apos compra. (2) Para alunos Extensao Vagal no dia 40. (3) Lead scoring: +20pts DRY, +15pts Vagal, +10pts cada curso. Alunos 40+ pts = convite personalizado PG. (4) Segmentar alunos Kiwify TEA(5) + Binaurais(3) como prospects de PG.</div>
+  </div>
+</div>
+
+<!-- ================================================================= -->
+<!-- SECAO 3: JORNADA tDCS (SEGUNDA PRIORIDADE) -->
+<!-- ================================================================= -->
+<div class="priority-header p3">
+  <h2><span class="priority-num" style="background:rgba(239,68,68,.2);color:#f87171">3</span> Jornada tDCS — Segunda Prioridade</h2>
+  <div class="desc">Quais cursos antecedem tDCS? Qual o caminho mais comum? Padrao direto vs. progressao? Percentual direto vs. via outros produtos?</div>
+</div>
+
+<div class="section">
+  <div class="kpi-strip" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+    <div class="kpi" style="border-left:3px solid #ef4444">
+      <div class="kpi-label">Clientes tDCS (Eduzz)</div>
+      <div class="kpi-val" style="color:#f87171">87</div>
+      <div class="kpi-sub">compradores unicos de tDCS na Eduzz</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #22c55e">
+      <div class="kpi-label">Taxa Cross-sell</div>
+      <div class="kpi-val" style="color:#34d399">82,8%</div>
+      <div class="kpi-sub">72 de 87 compraram outros produtos</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #f59e0b">
+      <div class="kpi-label">Compra Direta (sem outro antes)</div>
+      <div class="kpi-val" style="color:#fbbf24">17,2%</div>
+      <div class="kpi-sub">15 de 87 compraram tDCS como primeiro produto</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #8b5cf6">
+      <div class="kpi-label">Via Progressao (com outro antes)</div>
+      <div class="kpi-val" style="color:#a78bfa">82,8%</div>
+      <div class="kpi-sub">72 ja tinham outros cursos antes de tDCS</div>
+    </div>
+    <div class="kpi" style="border-left:3px solid #06b6d4">
+      <div class="kpi-label">Destino #1 Apos tDCS</div>
+      <div class="kpi-val" style="font-size:13px;color:#22d3ee">Extensao Vagal</div>
+      <div class="kpi-sub">18 conversoes | media 22 dias apos tDCS</div>
+    </div>
+  </div>
+
+  <!-- Direto vs Progressao -->
+  <div class="card">
+    <div class="card-title" style="color:#f87171">&#128202; Padrao de Compra tDCS: Direto vs. Progressao</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      <div style="padding:16px;background:rgba(245,158,11,.06);border-radius:8px;border:1px solid rgba(245,158,11,.15);text-align:center">
+        <div style="font-size:36px;font-weight:700;color:#fbbf24">17,2%</div>
+        <div style="font-size:13px;font-weight:600;color:#fbbf24;margin-top:4px">Compra Direta</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">15 clientes compraram tDCS como primeiro ou unico produto. Nao tinham outro curso antes.</div>
+      </div>
+      <div style="padding:16px;background:rgba(139,92,246,.06);border-radius:8px;border:1px solid rgba(139,92,246,.15);text-align:center">
+        <div style="font-size:36px;font-weight:700;color:#a78bfa">82,8%</div>
+        <div style="font-size:13px;font-weight:600;color:#a78bfa;margin-top:4px">Via Progressao</div>
+        <div style="font-size:11px;color:var(--muted);margin-top:6px">72 clientes ja tinham comprado outros cursos antes de tDCS. Os 6 produtos de entrada tem distribuicao uniforme (3x cada).</div>
+      </div>
+    </div>
+    <div style="margin-top:12px;padding:10px;background:rgba(239,68,68,.06);border-radius:6px;font-size:11px;color:var(--muted)">
+      <strong style="color:#f87171">Conclusao:</strong> tDCS funciona primariamente como <strong>produto de aprofundamento tecnico</strong> — a maioria (82,8%) ja tinha outros cursos. Nao e um produto de entrada, mas sim de progressao avancada na esteira.
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:16px">
+    <!-- O que compram DEPOIS de tDCS -->
+    <div class="card">
+      <div class="card-title" style="color:#f87171">&#128200; O que compram DEPOIS de tDCS (Eduzz)</div>
+      <canvas id="tdcsAfterChart"></canvas>
+      <div style="margin-top:10px;padding:8px;background:rgba(239,68,68,.06);border-radius:6px;font-size:11px;color:var(--muted)">
+        <strong style="color:#f87171">Insight:</strong> Extensao Vagal domina como proximo passo (18x em 22 dias). DRY Neurofeedback aparece como segundo destino mas leva mais tempo (84 dias).
+      </div>
+    </div>
+
+    <!-- O que compram ANTES de tDCS -->
+    <div class="card">
+      <div class="card-title" style="color:#60a5fa">&#128205; O que compram ANTES de tDCS (Eduzz)</div>
+      <canvas id="tdcsBeforeChart"></canvas>
+      <div style="margin-top:10px;padding:8px;background:rgba(59,130,246,.06);border-radius:6px;font-size:11px;color:var(--muted)">
+        <strong style="color:#60a5fa">Insight:</strong> Os 6 produtos que levam a tDCS tem distribuicao uniforme (3x cada), sugerindo que tDCS funciona como produto de aprofundamento tecnico apos qualquer curso inicial.
+      </div>
+    </div>
+  </div>
+
+  <!-- Fluxo tDCS Multiplataforma -->
+  <div class="card" style="margin-top:16px">
+    <div class="card-title" style="color:#f87171">&#128260; Jornada tDCS Multiplataforma (Eduzz + Kiwify + Voomp)</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
+      <div style="padding:14px;background:rgba(239,68,68,.06);border-radius:8px;border:1px solid rgba(239,68,68,.15)">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Eduzz (Plataforma Principal)</div>
+        <div style="font-size:11px;line-height:2">
+          <div style="display:flex;justify-content:space-between"><span>Extensao Vagal Auricular</span><strong style="color:#22d3ee">18x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>DRY Neurofeedback</span><strong style="color:#22d3ee">9x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>Neuromod. Nao-Invasiva</span><strong style="color:#22d3ee">3x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>Pos-Graduacao</span><strong style="color:#22d3ee">3x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>Neurofeedback Assinatura</span><strong style="color:#22d3ee">2x</strong></div>
+        </div>
+      </div>
+      <div style="padding:14px;background:rgba(59,130,246,.06);border-radius:8px;border:1px solid rgba(59,130,246,.15)">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Kiwify (Cross-Platform)</div>
+        <div style="font-size:11px;line-height:2">
+          <div style="display:flex;justify-content:space-between"><span>Neuromod. no TEA</span><strong style="color:#60a5fa">8x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>Freq. Binaurais</span><strong style="color:#60a5fa">6x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>Neuromod. Nao-Invasiva</span><strong style="color:#60a5fa">5x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>Workshop TDAH</span><strong style="color:#60a5fa">2x</strong></div>
+          <div style="display:flex;justify-content:space-between"><span>Biofeedback VFC</span><strong style="color:#60a5fa">2x</strong></div>
+        </div>
+      </div>
+      <div style="padding:14px;background:rgba(139,92,246,.06);border-radius:8px;border:1px solid rgba(139,92,246,.15)">
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Voomp (Assinatura/PG)</div>
+        <div style="font-size:11px;line-height:2;color:var(--muted)">
+          <div>15 clientes tDCS tambem</div>
+          <div>compraram na Voomp</div>
+          <div style="margin-top:8px;font-size:20px;font-weight:700;color:#a78bfa">17,2%</div>
+          <div>dos clientes tDCS migram</div>
+          <div>para assinaturas Voomp</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Insight tDCS -->
+  <div class="insight" style="margin-top:16px;border-color:rgba(239,68,68,.2)">
+    <div class="insight-title" style="color:#f87171">&#9889; Insight Estrategico tDCS</div>
+    <div class="insight-text">tDCS tem a <strong>maior taxa de cross-sell de todos os produtos Eduzz (82,8%)</strong> — apenas 15 de 87 clientes compram somente tDCS. O percurso mais comum e: <strong style="color:#f87171">tDCS &rarr; Extensao Vagal (22 dias) &rarr; DRY Neurofeedback (84 dias) &rarr; Pos-Graduacao (80 dias)</strong>. Alem disso, 20,7% dos clientes tDCS tambem compram na Kiwify (TEA e Binaurais) e 17,2% migram para Voomp, mostrando que tDCS e um produto-chave na esteira multiplataforma.</div>
+    <div class="insight-action"><strong>Acao:</strong> Criar sequencia automatizada: dia 15 apos tDCS oferecer Extensao Vagal com 15% desconto. Dia 60 oferecer DRY Neurofeedback. Dia 75 apresentar Pos-Graduacao como destino final. Cross-sell Kiwify: incluir TEA e Binaurais no dia 30.</div>
+  </div>
+</div>
+
+<!-- ================================================================= -->
+<!-- SECAO 4: TEMPO DE PROGRESSAO -->
+<!-- ================================================================= -->
+<div class="priority-header p4">
+  <h2><span class="priority-num" style="background:rgba(245,158,11,.2);color:#fbbf24">4</span> Tempo de Progressao — Comparativo Geral</h2>
+  <div class="desc">Tempo medio do primeiro produto ate tDCS e ate a Pos-Graduacao. Visao comparativa de velocidade de progressao na esteira.</div>
+</div>
+
+<div class="section">
+  <div class="grid-2">
+    <!-- Tempo ate tDCS -->
+    <div class="card">
+      <div class="card-title" style="color:#f87171">&#9200; Tempo entre tDCS e Proximo Produto (Eduzz)</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="padding:12px;background:rgba(34,197,94,.06);border-radius:8px;border-left:3px solid #22c55e">
+          <div style="font-size:20px;font-weight:700;color:#22c55e">22 dias</div>
+          <div style="font-size:12px;color:var(--muted)">tDCS &rarr; Extensao Vagal Auricular</div>
+          <div style="font-size:10px;color:#34d399">Mais rapido | 18 conversoes</div>
+        </div>
+        <div style="padding:12px;background:rgba(245,158,11,.06);border-radius:8px;border-left:3px solid #f59e0b">
+          <div style="font-size:20px;font-weight:700;color:#f59e0b">26 dias</div>
+          <div style="font-size:12px;color:var(--muted)">tDCS &rarr; Neuromod. Nao-Invasiva</div>
+          <div style="font-size:10px;color:#fbbf24">3 conversoes</div>
+        </div>
+        <div style="padding:12px;background:rgba(139,92,246,.06);border-radius:8px;border-left:3px solid #8b5cf6">
+          <div style="font-size:20px;font-weight:700;color:#8b5cf6">38 dias</div>
+          <div style="font-size:12px;color:var(--muted)">tDCS &rarr; Neurofeedback Assinatura</div>
+          <div style="font-size:10px;color:#a78bfa">2 conversoes</div>
+        </div>
+        <div style="padding:12px;background:rgba(239,68,68,.06);border-radius:8px;border-left:3px solid #ef4444">
+          <div style="font-size:20px;font-weight:700;color:#ef4444">80 dias</div>
+          <div style="font-size:12px;color:var(--muted)">tDCS &rarr; Pos-Graduacao</div>
+          <div style="font-size:10px;color:#f87171">3 conversoes | destino premium</div>
+        </div>
+        <div style="padding:12px;background:rgba(6,182,212,.06);border-radius:8px;border-left:3px solid #06b6d4">
+          <div style="font-size:20px;font-weight:700;color:#06b6d4">84 dias</div>
+          <div style="font-size:12px;color:var(--muted)">tDCS &rarr; DRY Neurofeedback</div>
+          <div style="font-size:10px;color:#22d3ee">9 conversoes</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tempo ate PG -->
+    <div class="card">
+      <div class="card-title" style="color:#a78bfa">&#9200; Tempo entre Ultimo Produto e Matricula na PG</div>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <div style="padding:12px;background:rgba(34,197,94,.06);border-radius:8px;border-left:3px solid #22c55e">
+          <div style="font-size:20px;font-weight:700;color:#22c55e">9 dias</div>
+          <div style="font-size:12px;color:var(--muted)">DRY Neurofeedback &rarr; PG</div>
+          <div style="font-size:10px;color:#34d399">Mais rapido! 6 alunos</div>
+        </div>
+        <div style="padding:12px;background:rgba(6,182,212,.06);border-radius:8px;border-left:3px solid #06b6d4">
+          <div style="font-size:20px;font-weight:700;color:#06b6d4">24 dias</div>
+          <div style="font-size:12px;color:var(--muted)">Neuromod. no TEA &rarr; PG</div>
+          <div style="font-size:10px;color:#22d3ee">3 alunos</div>
+        </div>
+        <div style="padding:12px;background:rgba(245,158,11,.06);border-radius:8px;border-left:3px solid #f59e0b">
+          <div style="font-size:20px;font-weight:700;color:#f59e0b">27 dias</div>
+          <div style="font-size:12px;color:var(--muted)">Neuromod. Nao-Invasiva &rarr; PG</div>
+          <div style="font-size:10px;color:#fbbf24">4 alunos</div>
+        </div>
+        <div style="padding:12px;background:rgba(139,92,246,.06);border-radius:8px;border-left:3px solid #8b5cf6">
+          <div style="font-size:20px;font-weight:700;color:#8b5cf6">55 dias</div>
+          <div style="font-size:12px;color:var(--muted)">Biofeedback VFC &rarr; PG</div>
+          <div style="font-size:10px;color:#a78bfa">3 alunos</div>
+        </div>
+        <div style="padding:12px;background:rgba(236,72,153,.06);border-radius:8px;border-left:3px solid #ec4899">
+          <div style="font-size:20px;font-weight:700;color:#ec4899">60 dias</div>
+          <div style="font-size:12px;color:var(--muted)">Extensao Vagal &rarr; PG</div>
+          <div style="font-size:10px;color:#f472b6">6 alunos | produto #1</div>
+        </div>
+        <div style="padding:12px;background:rgba(239,68,68,.06);border-radius:8px;border-left:3px solid #ef4444">
+          <div style="font-size:20px;font-weight:700;color:#ef4444">80 dias</div>
+          <div style="font-size:12px;color:var(--muted)">tDCS &rarr; PG</div>
+          <div style="font-size:10px;color:#f87171">3 alunos</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tempo Recompra Geral -->
+  <div class="grid-2" style="margin-top:16px">
+    <div class="card">
+      <div class="card-title">&#9200; Tempo Medio ate Recompra por Curso (dias)</div>
+      <canvas id="rebuyTimeChart"></canvas>
+    </div>
+    <div class="card">
+      <div class="card-title">&#128202; Taxa de Recompra por Curso (com volume significativo)</div>
+      <canvas id="rebuyRateChart"></canvas>
+    </div>
+  </div>
+
+  <!-- Insight Tempo -->
+  <div class="insight" style="margin-top:16px;border-color:rgba(245,158,11,.2)">
+    <div class="insight-title" style="color:#fbbf24">&#128338; Insight de Timing: Janelas de Conversao</div>
+    <div class="insight-text">
+      <strong>Recompra mais rapida:</strong> Biofeedback VFC (17 dias) e Binaurais (46 dias) — janelas curtas de alto engajamento.<br>
+      <strong>Para tDCS:</strong> A janela ideal e dia 15-25 apos tDCS para oferecer Extensao Vagal (22d media).<br>
+      <strong>Para PG:</strong> A janela ideal e dia 5-10 apos DRY Neurofeedback (9d media) — o aluno decide PG quase imediatamente.<br>
+      <strong>Gargalo:</strong> Nao-Invasiva demora 95 dias para recompra — reduzir esse tempo com automacao pode acelerar todo o funil.
+    </div>
+    <div class="insight-action"><strong>Acao:</strong> Implementar automacao de email por produto: Nao-Invasiva (dia 5: webinar gratuito, dia 30: oferta TEA/Binaurais), tDCS (dia 15: Vagal), DRY (dia 5: PG). Acompanhar metricas de conversao por janela.</div>
+  </div>
+</div>
+
+<!-- ================================================================= -->
+<!-- SECOES EXISTENTES PRESERVADAS -->
+<!-- ================================================================= -->
 
 <!-- RANKING DE RECOMPRA -->
 <div class="section">
@@ -293,20 +905,7 @@ canvas{max-height:280px}
   <div class="section-title">&#128202; Visualizacoes de Recompra</div>
   <div class="grid-2">
     <div class="card">
-      <div class="card-title">&#128200; Taxa de Recompra por Curso (com volume significativo)</div>
-      <canvas id="rebuyRateChart"></canvas>
-    </div>
-    <div class="card">
-      <div class="card-title">&#9200; Tempo Medio ate Recompra (dias)</div>
-      <canvas id="rebuyTimeChart"></canvas>
-    </div>
-  </div>
-</div>
-
-<div class="section">
-  <div class="grid-2">
-    <div class="card">
-      <div class="card-title">&#128176; Volume Absoluto de Recompra (clientes que compraram outro produto)</div>
+      <div class="card-title">&#128176; Volume Absoluto de Recompra</div>
       <canvas id="rebuyVolumeChart"></canvas>
     </div>
     <div class="card">
@@ -341,7 +940,7 @@ canvas{max-height:280px}
 
     <div class="prod-detail" style="border-left:3px solid #10b981">
       <div class="prod-header">
-        <h3>&#11088; Neuromodulacao Nao-Invasiva <span class="badge badge-hot">PORTA DE ENTRADA</span></h3>
+        <h3>&#11088; Neuromodulacao Nao-Invasiva <span class="badge badge-entry">PORTA DE ENTRADA</span></h3>
       </div>
       <div class="prod-metrics">
         <div class="prod-metric"><div class="num" style="color:#10b981">513</div><div class="lbl">Compradores</div></div>
@@ -439,322 +1038,6 @@ canvas{max-height:280px}
   </div>
 </div>
 
-<!-- ================================================ -->
-<!-- SECAO: ANALISE tDCS - PERCURSO DO CLIENTE -->
-<!-- ================================================ -->
-<div class="section">
-  <div class="section-title" style="border-bottom-color:#ef4444">&#9889; Analise tDCS (Eduzz) — Percurso Completo do Cliente</div>
-
-  <div class="kpi-strip" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
-    <div class="kpi" style="border-left:3px solid #ef4444">
-      <div class="kpi-label">Clientes tDCS (Eduzz)</div>
-      <div class="kpi-val" style="color:#f87171">87</div>
-      <div class="kpi-sub">compradores unicos de tDCS na Eduzz</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #22c55e">
-      <div class="kpi-label">Taxa Cross-sell</div>
-      <div class="kpi-val" style="color:#34d399">82,8%</div>
-      <div class="kpi-sub">72 de 87 compraram outros produtos</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #f59e0b">
-      <div class="kpi-label">Tambem na Kiwify</div>
-      <div class="kpi-val" style="color:#fbbf24">18</div>
-      <div class="kpi-sub">clientes tDCS que tambem compraram na Kiwify</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #8b5cf6">
-      <div class="kpi-label">Tambem na Voomp</div>
-      <div class="kpi-val" style="color:#a78bfa">15</div>
-      <div class="kpi-sub">clientes tDCS que tambem compraram na Voomp</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #06b6d4">
-      <div class="kpi-label">Destino #1 Apos tDCS</div>
-      <div class="kpi-val" style="font-size:13px;color:#22d3ee">Extensao Vagal</div>
-      <div class="kpi-sub">18 conversoes | media 22 dias apos tDCS</div>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <!-- O que compram DEPOIS de tDCS -->
-    <div class="card">
-      <div class="card-title" style="color:#f87171">&#128200; O que compram DEPOIS de tDCS (Eduzz)</div>
-      <canvas id="tdcsAfterChart"></canvas>
-      <div style="margin-top:10px;padding:8px;background:rgba(239,68,68,.06);border-radius:6px;font-size:11px;color:var(--muted)">
-        <strong style="color:#f87171">Insight:</strong> Extensao Vagal domina como proximo passo (18x em 22 dias). DRY Neurofeedback aparece como segundo destino mas leva mais tempo (84 dias).
-      </div>
-    </div>
-
-    <!-- O que compram ANTES de tDCS -->
-    <div class="card">
-      <div class="card-title" style="color:#60a5fa">&#128205; O que compram ANTES de tDCS (Eduzz)</div>
-      <canvas id="tdcsBeforeChart"></canvas>
-      <div style="margin-top:10px;padding:8px;background:rgba(59,130,246,.06);border-radius:6px;font-size:11px;color:var(--muted)">
-        <strong style="color:#60a5fa">Insight:</strong> Os 6 produtos que levam a tDCS tem distribuicao uniforme (3x cada), sugerindo que tDCS funciona como produto de aprofundamento tecnico apos qualquer curso inicial.
-      </div>
-    </div>
-  </div>
-
-  <!-- Fluxo tDCS Multiplataforma -->
-  <div class="card" style="margin-top:16px">
-    <div class="card-title" style="color:#f87171">&#128260; Jornada tDCS Multiplataforma (Eduzz + Kiwify + Voomp)</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px">
-      <div style="padding:14px;background:rgba(239,68,68,.06);border-radius:8px;border:1px solid rgba(239,68,68,.15)">
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Eduzz (Plataforma Principal)</div>
-        <div style="font-size:11px;line-height:2">
-          <div style="display:flex;justify-content:space-between"><span>Extensao Vagal Auricular</span><strong style="color:#22d3ee">18x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>DRY Neurofeedback</span><strong style="color:#22d3ee">9x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>Neuromod. Nao-Invasiva</span><strong style="color:#22d3ee">3x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>Pos-Graduacao</span><strong style="color:#22d3ee">3x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>Neurofeedback Assinatura</span><strong style="color:#22d3ee">2x</strong></div>
-        </div>
-      </div>
-      <div style="padding:14px;background:rgba(59,130,246,.06);border-radius:8px;border:1px solid rgba(59,130,246,.15)">
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Kiwify (Cross-Platform)</div>
-        <div style="font-size:11px;line-height:2">
-          <div style="display:flex;justify-content:space-between"><span>Neuromod. no TEA</span><strong style="color:#60a5fa">8x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>Freq. Binaurais</span><strong style="color:#60a5fa">6x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>Neuromod. Nao-Invasiva</span><strong style="color:#60a5fa">5x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>Workshop TDAH</span><strong style="color:#60a5fa">2x</strong></div>
-          <div style="display:flex;justify-content:space-between"><span>Biofeedback VFC</span><strong style="color:#60a5fa">2x</strong></div>
-        </div>
-      </div>
-      <div style="padding:14px;background:rgba(139,92,246,.06);border-radius:8px;border:1px solid rgba(139,92,246,.15)">
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Voomp (Assinatura/PG)</div>
-        <div style="font-size:11px;line-height:2;color:var(--muted)">
-          <div>15 clientes tDCS tambem</div>
-          <div>compraram na Voomp</div>
-          <div style="margin-top:8px;font-size:20px;font-weight:700;color:#a78bfa">17,2%</div>
-          <div>dos clientes tDCS migram</div>
-          <div>para assinaturas Voomp</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Timing tDCS -->
-  <div class="card" style="margin-top:16px">
-    <div class="card-title" style="color:#f87171">&#9200; Tempo entre tDCS e Proximo Produto (Eduzz)</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px">
-      <div style="padding:12px;background:rgba(34,197,94,.06);border-radius:8px;border-left:3px solid #22c55e">
-        <div style="font-size:20px;font-weight:700;color:#22c55e">22 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Extensao Vagal Auricular</div>
-        <div style="font-size:10px;color:#34d399">Mais rapido | 18 conversoes</div>
-      </div>
-      <div style="padding:12px;background:rgba(245,158,11,.06);border-radius:8px;border-left:3px solid #f59e0b">
-        <div style="font-size:20px;font-weight:700;color:#f59e0b">26 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Neuromod. Nao-Invasiva</div>
-        <div style="font-size:10px;color:#fbbf24">3 conversoes</div>
-      </div>
-      <div style="padding:12px;background:rgba(139,92,246,.06);border-radius:8px;border-left:3px solid #8b5cf6">
-        <div style="font-size:20px;font-weight:700;color:#8b5cf6">38 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Neurofeedback Assinatura</div>
-        <div style="font-size:10px;color:#a78bfa">2 conversoes</div>
-      </div>
-      <div style="padding:12px;background:rgba(239,68,68,.06);border-radius:8px;border-left:3px solid #ef4444">
-        <div style="font-size:20px;font-weight:700;color:#ef4444">80 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Pos-Graduacao</div>
-        <div style="font-size:10px;color:#f87171">3 conversoes | destino premium</div>
-      </div>
-      <div style="padding:12px;background:rgba(6,182,212,.06);border-radius:8px;border-left:3px solid #06b6d4">
-        <div style="font-size:20px;font-weight:700;color:#06b6d4">84 dias</div>
-        <div style="font-size:12px;color:var(--muted)">DRY Neurofeedback</div>
-        <div style="font-size:10px;color:#22d3ee">9 conversoes</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Insight tDCS -->
-  <div class="insight" style="margin-top:16px;border-color:rgba(239,68,68,.2)">
-    <div class="insight-title" style="color:#f87171">&#9889; Insight Estrategico tDCS</div>
-    <div class="insight-text">tDCS tem a <strong>maior taxa de cross-sell de todos os produtos Eduzz (82,8%)</strong> — apenas 15 de 87 clientes compram somente tDCS. O percurso mais comum e: <strong style="color:#f87171">tDCS &rarr; Extensao Vagal (22 dias) &rarr; DRY Neurofeedback (84 dias) &rarr; Pos-Graduacao (80 dias)</strong>. Alem disso, 20,7% dos clientes tDCS tambem compram na Kiwify (TEA e Binaurais) e 17,2% migram para Voomp, mostrando que tDCS e um produto-chave na esteira multiplataforma.</div>
-    <div class="insight-action"><strong>Acao:</strong> Criar sequencia automatizada: dia 15 apos tDCS oferecer Extensao Vagal com 15% desconto. Dia 60 oferecer DRY Neurofeedback. Dia 75 apresentar Pos-Graduacao como destino final. Cross-sell Kiwify: incluir TEA e Binaurais no dia 30.</div>
-  </div>
-</div>
-
-<!-- ================================================ -->
-<!-- SECAO: ANALISE POS-GRADUACAO -->
-<!-- ================================================ -->
-<div class="section">
-  <div class="section-title" style="border-bottom-color:#8b5cf6">&#127891; Analise Pos-Graduacao (Eduzz + Voomp) — Qual Produto Leva Mais?</div>
-
-  <div class="kpi-strip" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
-    <div class="kpi" style="border-left:3px solid #8b5cf6">
-      <div class="kpi-label">Alunos PG (Eduzz)</div>
-      <div class="kpi-val" style="color:#a78bfa">27</div>
-      <div class="kpi-sub">matriculados na Pos-Graduacao via Eduzz</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #22c55e">
-      <div class="kpi-label">Com Compra Anterior</div>
-      <div class="kpi-val" style="color:#34d399">96,3%</div>
-      <div class="kpi-sub">26 de 27 compraram outro produto antes</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #3b82f6">
-      <div class="kpi-label">Produto #1 que Leva a PG</div>
-      <div class="kpi-val" style="font-size:13px;color:#60a5fa">Extensao Vagal</div>
-      <div class="kpi-sub">6 alunos | media 60 dias antes da PG</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #06b6d4">
-      <div class="kpi-label">Produto #2 que Leva a PG</div>
-      <div class="kpi-val" style="font-size:13px;color:#22d3ee">DRY Neurofeedback</div>
-      <div class="kpi-sub">6 alunos | media 9 dias antes da PG</div>
-    </div>
-    <div class="kpi" style="border-left:3px solid #f59e0b">
-      <div class="kpi-label">Tambem na Kiwify</div>
-      <div class="kpi-val" style="color:#fbbf24">8</div>
-      <div class="kpi-sub">29,6% dos alunos PG compraram na Kiwify</div>
-    </div>
-  </div>
-
-  <div class="grid-2">
-    <!-- O que compram ANTES da PG -->
-    <div class="card">
-      <div class="card-title" style="color:#a78bfa">&#128200; Produtos Comprados ANTES da Pos-Graduacao (Eduzz)</div>
-      <canvas id="pgBeforeChart"></canvas>
-      <div style="margin-top:10px;padding:8px;background:rgba(139,92,246,.06);border-radius:6px;font-size:11px;color:var(--muted)">
-        <strong style="color:#a78bfa">Insight:</strong> 96,3% dos alunos PG compraram antes. O funil mais forte e: Extensao Vagal (6x, 60d) e DRY Neurofeedback (6x, 9d). DRY e o mais rapido — quem compra DRY, matricula na PG em apenas 9 dias.
-      </div>
-    </div>
-
-    <!-- Funil de entrada PG -->
-    <div class="card">
-      <div class="card-title" style="color:#a78bfa">&#127919; Funil de Entrada para Pos-Graduacao — Ranking de Produtos</div>
-      <div id="pg-funnel-container"></div>
-    </div>
-  </div>
-
-  <!-- PG Cross-Platform -->
-  <div class="card" style="margin-top:16px">
-    <div class="card-title" style="color:#a78bfa">&#128260; Jornada ate a Pos-Graduacao — Visao Multiplataforma</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-      <div>
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Produtos Eduzz que levam a PG</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Extensao Vagal</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">6 alunos</div></div>
-            <span style="font-size:10px;color:#a78bfa;min-width:40px">60d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">DRY Neurofeedback</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">6 alunos</div></div>
-            <span style="font-size:10px;color:#22d3ee;min-width:40px">9d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Neuromod. Nao-Invasiva</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:67%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">4</div></div>
-            <span style="font-size:10px;color:#f59e0b;min-width:40px">27d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">tDCS</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#ef4444,#f87171);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
-            <span style="font-size:10px;color:#ef4444;min-width:40px">80d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Biofeedback VFC</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
-            <span style="font-size:10px;color:#f59e0b;min-width:40px">55d</span>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Neuromod. no TEA</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:50%;height:100%;background:linear-gradient(90deg,#06b6d4,#22d3ee);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
-            <span style="font-size:10px;color:#06b6d4;min-width:40px">24d</span>
-          </div>
-        </div>
-      </div>
-      <div>
-        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Produtos Kiwify dos Alunos PG (8 alunos)</div>
-        <div style="display:flex;flex-direction:column;gap:6px">
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Neuromod. no TEA</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:100%;height:100%;background:linear-gradient(90deg,#3b82f6,#60a5fa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">5 alunos</div></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Freq. Binaurais</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:60%;height:100%;background:linear-gradient(90deg,#06b6d4,#22d3ee);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">3</div></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Neuromod. Nao-Invasiva</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:40%;height:100%;background:linear-gradient(90deg,#10b981,#34d399);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">2</div></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Biofeedback VFC</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#f59e0b,#fbbf24);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">1</div></div>
-          </div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div style="flex:0 0 180px;font-size:11px">Workshop TDAH</div>
-            <div style="flex:1;height:22px;background:rgba(255,255,255,.03);border-radius:4px;overflow:hidden"><div style="width:20%;height:100%;background:linear-gradient(90deg,#8b5cf6,#a78bfa);display:flex;align-items:center;padding:0 8px;font-size:10px;font-weight:600">1</div></div>
-          </div>
-        </div>
-        <div style="margin-top:12px;padding:8px;background:rgba(59,130,246,.06);border-radius:6px;font-size:10px;color:var(--muted)">
-          29,6% dos alunos PG ja compraram na Kiwify. TEA e Binaurais sao os cursos mais comuns entre futuros alunos PG.
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Timing PG -->
-  <div class="card" style="margin-top:16px">
-    <div class="card-title" style="color:#a78bfa">&#9200; Tempo entre Ultimo Produto e Matricula na Pos-Graduacao</div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px">
-      <div style="padding:12px;background:rgba(34,197,94,.06);border-radius:8px;border-left:3px solid #22c55e">
-        <div style="font-size:20px;font-weight:700;color:#22c55e">9 dias</div>
-        <div style="font-size:12px;color:var(--muted)">DRY Neurofeedback &rarr; PG</div>
-        <div style="font-size:10px;color:#34d399">Mais rapido! 6 alunos</div>
-      </div>
-      <div style="padding:12px;background:rgba(6,182,212,.06);border-radius:8px;border-left:3px solid #06b6d4">
-        <div style="font-size:20px;font-weight:700;color:#06b6d4">24 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Neuromod. no TEA &rarr; PG</div>
-        <div style="font-size:10px;color:#22d3ee">3 alunos</div>
-      </div>
-      <div style="padding:12px;background:rgba(245,158,11,.06);border-radius:8px;border-left:3px solid #f59e0b">
-        <div style="font-size:20px;font-weight:700;color:#f59e0b">27 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Neuromod. Nao-Invasiva &rarr; PG</div>
-        <div style="font-size:10px;color:#fbbf24">4 alunos</div>
-      </div>
-      <div style="padding:12px;background:rgba(139,92,246,.06);border-radius:8px;border-left:3px solid #8b5cf6">
-        <div style="font-size:20px;font-weight:700;color:#8b5cf6">55 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Biofeedback VFC &rarr; PG</div>
-        <div style="font-size:10px;color:#a78bfa">3 alunos</div>
-      </div>
-      <div style="padding:12px;background:rgba(239,68,68,.06);border-radius:8px;border-left:3px solid #ef4444">
-        <div style="font-size:20px;font-weight:700;color:#ef4444">60 dias</div>
-        <div style="font-size:12px;color:var(--muted)">Extensao Vagal &rarr; PG</div>
-        <div style="font-size:10px;color:#f87171">6 alunos | produto #1</div>
-      </div>
-      <div style="padding:12px;background:rgba(236,72,153,.06);border-radius:8px;border-left:3px solid #ec4899">
-        <div style="font-size:20px;font-weight:700;color:#ec4899">80 dias</div>
-        <div style="font-size:12px;color:var(--muted)">tDCS &rarr; PG</div>
-        <div style="font-size:10px;color:#f472b6">3 alunos</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Insights PG -->
-  <div class="insight" style="margin-top:16px;border-color:rgba(139,92,246,.2)">
-    <div class="insight-title" style="color:#a78bfa">&#127891; Insight Estrategico Pos-Graduacao</div>
-    <div class="insight-text">A Pos-Graduacao e o <strong>destino final da esteira</strong> — 96,3% dos alunos ja compraram outros produtos antes. Nenhum aluno comprou outro produto DEPOIS da PG, confirmando que e o topo do funil. Os dois caminhos mais fortes para PG sao: <strong style="color:#a78bfa">(1) Extensao Vagal &rarr; PG (6 alunos, 60 dias)</strong> e <strong style="color:#22d3ee">(2) DRY Neurofeedback &rarr; PG (6 alunos, apenas 9 dias!)</strong>. O caminho DRY &rarr; PG e 6x mais rapido que o caminho Vagal &rarr; PG.</div>
-    <div class="insight-action"><strong>Acao:</strong> Criar campanha especifica "Da Especializacao a Pos-Graduacao" para alunos de Extensao Vagal (dia 40) e DRY Neurofeedback (dia 5). Oferecer condicao especial para alunos que ja tem 3+ cursos. Segmentar alunos Kiwify de TEA e Binaurais como prospects de PG (5 TEA + 3 Binaurais ja converteram).</div>
-  </div>
-
-  <!-- Esteira Completa PG -->
-  <div class="insight" style="border-color:rgba(139,92,246,.2)">
-    <div class="insight-title" style="color:#a78bfa">&#128640; Esteira Ideal para Pos-Graduacao (Identificada pelos Dados)</div>
-    <div class="insight-text">
-      <strong style="color:#10b981">Caminho 1 (Rapido — 9 dias):</strong><br>
-      <span style="color:#06b6d4">DRY Neurofeedback</span> <span style="color:var(--muted)">&rarr; 9 dias &rarr;</span> <strong style="color:#a78bfa">POS-GRADUACAO</strong><br><br>
-      <strong style="color:#f59e0b">Caminho 2 (Principal — 60 dias):</strong><br>
-      <span style="color:#3b82f6">Extensao Vagal</span> <span style="color:var(--muted)">&rarr; 60 dias &rarr;</span> <strong style="color:#a78bfa">POS-GRADUACAO</strong><br><br>
-      <strong style="color:#ef4444">Caminho 3 (Longo — 80 dias):</strong><br>
-      <span style="color:#ef4444">tDCS</span> <span style="color:var(--muted)">&rarr; 80 dias &rarr;</span> <strong style="color:#a78bfa">POS-GRADUACAO</strong><br><br>
-      <strong style="color:#8b5cf6">Caminho Multiplataforma:</strong><br>
-      <span style="color:#10b981">Nao-Invasiva (Kiwify)</span> <span style="color:var(--muted)">&rarr;</span>
-      <span style="color:#8b5cf6">TEA (Kiwify)</span> <span style="color:var(--muted)">&rarr;</span>
-      <span style="color:#06b6d4">DRY/Vagal (Eduzz)</span> <span style="color:var(--muted)">&rarr;</span>
-      <strong style="color:#a78bfa">POS-GRADUACAO (Eduzz)</strong>
-    </div>
-    <div class="insight-action"><strong>Acao:</strong> Implementar lead scoring: +10pts por cada curso comprado, +20pts para DRY Neurofeedback, +15pts para Extensao Vagal. Alunos com 40+ pts recebem convite personalizado para PG. Meta: converter 15% dos alunos elegíveis (estimativa: 8-12 novos alunos/trimestre).</div>
-  </div>
-</div>
-
 <!-- INSIGHTS ESTRATEGICOS -->
 <div class="section">
   <div class="section-title">&#128161; Insights Estrategicos de Recompra</div>
@@ -804,8 +1087,8 @@ canvas{max-height:280px}
 </div>
 
 <div style="text-align:center;padding:24px;color:var(--muted);font-size:11px">
-  Dashboard BRAINPRO | Analise de Recompra por Curso | Dados: Kiwify + Voomp + Eduzz | Abril 2026<br>
-  Acesse de qualquer dispositivo — otimizado para desktop e mobile
+  Dashboard BRAINPRO | Funil Estrategico: Entrada ate Pos-Graduacao | Dados: Kiwify + Voomp + Eduzz | Abril 2026<br>
+  Reorganizado por prioridade estrategica — Acesse de qualquer dispositivo
 </div>
 
 </div>
@@ -815,99 +1098,26 @@ Chart.defaults.color='#7a8baa';
 Chart.defaults.borderColor='rgba(30,45,74,.5)';
 Chart.defaults.font.family="'Segoe UI',system-ui,sans-serif";
 
-// 1. Rebuy Rate Chart (cursos com volume significativo)
-new Chart(document.getElementById('rebuyRateChart'),{
+// 1. Entry Funnel Chart (NEW)
+new Chart(document.getElementById('entryFunnelChart'),{
   type:'bar',
   data:{
-    labels:['Biofeedback VFC','Neuromod. TDAH','Durma Bem','Workshop TDAH','Assinatura Voomp','Nao-Invasiva','Curso TEA','Freq. Binaurais'],
+    labels:['Nao-Invasiva','Curso TEA','Assinatura Voomp','Freq. Binaurais'],
     datasets:[{
-      label:'Taxa Recompra (%)',
-      data:[91.7,52.9,40.9,32.2,21.5,18.5,18.0,16.9],
-      backgroundColor:['#f59e0b','#ef4444','#ec4899','#8b5cf6','#3b82f6','#10b981','#a78bfa','#06b6d4'],
-      borderRadius:6,borderSkipped:false
-    }]
-  },
-  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}},scales:{x:{beginAtZero:true,max:100,grid:{color:'rgba(30,45,74,.3)'},ticks:{callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:11}}}}}
-});
-
-// 2. Rebuy Time Chart
-new Chart(document.getElementById('rebuyTimeChart'),{
-  type:'bar',
-  data:{
-    labels:['Biofeedback VFC','Freq. Binaurais','Nao-Invasiva','Curso TEA','Workshop TDAH','Neuromod. TDAH','Durma Bem'],
-    datasets:[{
-      label:'Dias ate recompra',
-      data:[17,46,95,92,101,214,236],
-      backgroundColor:function(ctx){const v=ctx.raw;return v<=30?'#22c55e':v<=60?'#06b6d4':v<=100?'#f59e0b':'#ef4444'},
-      borderRadius:6,borderSkipped:false
-    }]
-  },
-  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' dias'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'},ticks:{callback:v=>v+'d'}},y:{grid:{display:false},ticks:{font:{size:11}}}}}
-});
-
-// 3. Volume Chart
-new Chart(document.getElementById('rebuyVolumeChart'),{
-  type:'bar',
-  data:{
-    labels:['Nao-Invasiva','Assinatura Voomp','Curso TEA','Freq. Binaurais','Grp WhatsApp','Workshop TDAH','Demo Aparelhos','Biofeedback VFC'],
-    datasets:[{
-      label:'Clientes que recompraram',
-      data:[95,62,54,41,30,28,28,22],
-      backgroundColor:'rgba(59,130,246,.7)',borderRadius:6,borderSkipped:false
-    },{
-      label:'Total compradores',
-      data:[513,289,300,243,30,87,30,24],
+      label:'Total Compradores',
+      data:[513,300,289,243],
       backgroundColor:'rgba(59,130,246,.15)',borderRadius:6,borderSkipped:false
+    },{
+      label:'Recompraram (progressao)',
+      data:[95,54,62,41],
+      backgroundColor:['#10b981','#8b5cf6','#3b82f6','#06b6d4'],
+      borderRadius:6,borderSkipped:false
     }]
   },
   options:{responsive:true,plugins:{legend:{position:'bottom',labels:{usePointStyle:true,font:{size:11}}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
 });
 
-// 4. Revenue Chart
-new Chart(document.getElementById('revenueChart'),{
-  type:'doughnut',
-  data:{
-    labels:['Assinatura Voomp','Curso TEA','Freq. Binaurais','Workshop TDAH','Nao-Invasiva','Biofeedback VFC','Neuromod. TDAH','Durma Bem','Outros'],
-    datasets:[{
-      data:[471506,110253,75565,27686,16083,7128,6749,3937,10132],
-      backgroundColor:['#3b82f6','#8b5cf6','#06b6d4','#f59e0b','#10b981','#ef4444','#ec4899','#a78bfa','#64748b'],
-      borderWidth:0,hoverOffset:8
-    }]
-  },
-  options:{responsive:true,cutout:'50%',plugins:{legend:{position:'right',labels:{padding:8,usePointStyle:true,font:{size:10}}},tooltip:{callbacks:{label:c=>'R$ '+c.raw.toLocaleString('pt-BR')+' ('+(c.raw/729039*100).toFixed(1)+'%)'}}}}
-});
-
-// 5. tDCS After Chart
-new Chart(document.getElementById('tdcsAfterChart'),{
-  type:'bar',
-  data:{
-    labels:['Extensao Vagal','DRY Neurofeedback','Neuromod. Nao-Invasiva','Pos-Graduacao','Neurofeedback Assin.','Vagal p/ Zumbido'],
-    datasets:[{
-      label:'Conversoes apos tDCS',
-      data:[18,9,3,3,2,1],
-      backgroundColor:['#8b5cf6','#06b6d4','#10b981','#f59e0b','#3b82f6','#ec4899'],
-      borderRadius:6,borderSkipped:false
-    }]
-  },
-  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' conversoes'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}
-});
-
-// 5b. tDCS Before Chart
-new Chart(document.getElementById('tdcsBeforeChart'),{
-  type:'bar',
-  data:{
-    labels:['Vagal Zumbido','Extensao Vagal','Freq. Binaurais','Vagal SEM JUROS','Biofeedback VFC','DRY Neurofeedback'],
-    datasets:[{
-      label:'Compras antes de tDCS',
-      data:[3,3,3,3,3,3],
-      backgroundColor:['#ec4899','#8b5cf6','#06b6d4','#a78bfa','#f59e0b','#3b82f6'],
-      borderRadius:6,borderSkipped:false
-    }]
-  },
-  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' clientes'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}
-});
-
-// 5c. PG Before Chart
+// 2. PG Before Chart
 new Chart(document.getElementById('pgBeforeChart'),{
   type:'bar',
   data:{
@@ -927,11 +1137,11 @@ new Chart(document.getElementById('pgBeforeChart'),{
   options:{indexAxis:'y',responsive:true,plugins:{legend:{position:'bottom',labels:{usePointStyle:true,font:{size:10}}},tooltip:{callbacks:{label:function(c){return c.datasetIndex===0?c.raw+' alunos':c.raw+' dias antes'}}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}
 });
 
-// 5d. PG Funnel Container
+// 3. PG Funnel Container
 const pgfc = document.getElementById('pg-funnel-container');
 const pgFunnelData = [
-  {prod:'Extensao Vagal Auricular',count:6,days:60,color:'#8b5cf6'},
   {prod:'DRY Neurofeedback',count:6,days:9,color:'#06b6d4'},
+  {prod:'Extensao Vagal Auricular',count:6,days:60,color:'#8b5cf6'},
   {prod:'Neuromod. Nao-Invasiva',count:4,days:27,color:'#10b981'},
   {prod:'tDCS',count:3,days:80,color:'#ef4444'},
   {prod:'Biofeedback VFC',count:3,days:55,color:'#f59e0b'},
@@ -939,15 +1149,106 @@ const pgFunnelData = [
 ];
 pgFunnelData.forEach(f => {
   const pct = (f.count/6*100).toFixed(0);
-  pgfc.innerHTML += `<div class="flow-item"><span class="flow-from" style="background:rgba(139,92,246,.1);color:#a78bfa">${f.prod}</span><span class="flow-arrow">&#10132;</span><span class="flow-to" style="background:rgba(139,92,246,.15);color:#d8b4fe;font-weight:700">POS-GRAD</span><div class="flow-bar"><div class="flow-fill" style="width:${pct}%;background:${f.color}">${f.count}x</div></div><span style="font-size:10px;color:var(--muted);min-width:35px;text-align:right">${f.days}d</span></div>`;
+  pgfc.innerHTML += '<div class="flow-item"><span class="flow-from" style="background:rgba(139,92,246,.1);color:#a78bfa">'+f.prod+'</span><span class="flow-arrow">&#10132;</span><span class="flow-to" style="background:rgba(139,92,246,.15);color:#d8b4fe;font-weight:700">POS-GRAD</span><div class="flow-bar"><div class="flow-fill" style="width:'+pct+'%;background:'+f.color+'">'+f.count+'x</div></div><span style="font-size:10px;color:var(--muted);min-width:35px;text-align:right">'+f.days+'d</span></div>';
 });
 
-// 6. Funnel / Sankey-like chart
-const funnelCtx = document.getElementById('funnelChart').getContext('2d');
-new Chart(funnelCtx,{
+// 4. tDCS After Chart
+new Chart(document.getElementById('tdcsAfterChart'),{
   type:'bar',
   data:{
-    labels:['Nao-Inv. → Assin.','Nao-Inv. → TEA','Nao-Inv. → Binaurais','TEA → Workshop','Binaurais → TEA','VFC → Nao-Inv.','Nao-Inv. → Workshop','Binaurais → Assin.','TEA → Assinatura','Workshop → Nao-Inv.'],
+    labels:['Extensao Vagal','DRY Neurofeedback','Neuromod. Nao-Invasiva','Pos-Graduacao','Neurofeedback Assin.','Vagal p/ Zumbido'],
+    datasets:[{
+      label:'Conversoes apos tDCS',
+      data:[18,9,3,3,2,1],
+      backgroundColor:['#8b5cf6','#06b6d4','#10b981','#f59e0b','#3b82f6','#ec4899'],
+      borderRadius:6,borderSkipped:false
+    }]
+  },
+  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' conversoes'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}
+});
+
+// 5. tDCS Before Chart
+new Chart(document.getElementById('tdcsBeforeChart'),{
+  type:'bar',
+  data:{
+    labels:['Vagal Zumbido','Extensao Vagal','Freq. Binaurais','Vagal SEM JUROS','Biofeedback VFC','DRY Neurofeedback'],
+    datasets:[{
+      label:'Compras antes de tDCS',
+      data:[3,3,3,3,3,3],
+      backgroundColor:['#ec4899','#8b5cf6','#06b6d4','#a78bfa','#f59e0b','#3b82f6'],
+      borderRadius:6,borderSkipped:false
+    }]
+  },
+  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' clientes'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}
+});
+
+// 6. Rebuy Rate Chart
+new Chart(document.getElementById('rebuyRateChart'),{
+  type:'bar',
+  data:{
+    labels:['Biofeedback VFC','Neuromod. TDAH','Durma Bem','Workshop TDAH','Assinatura Voomp','Nao-Invasiva','Curso TEA','Freq. Binaurais'],
+    datasets:[{
+      label:'Taxa Recompra (%)',
+      data:[91.7,52.9,40.9,32.2,21.5,18.5,18.0,16.9],
+      backgroundColor:['#f59e0b','#ef4444','#ec4899','#8b5cf6','#3b82f6','#10b981','#a78bfa','#06b6d4'],
+      borderRadius:6,borderSkipped:false
+    }]
+  },
+  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+'%'}}},scales:{x:{beginAtZero:true,max:100,grid:{color:'rgba(30,45,74,.3)'},ticks:{callback:v=>v+'%'}},y:{grid:{display:false},ticks:{font:{size:11}}}}}
+});
+
+// 7. Rebuy Time Chart
+new Chart(document.getElementById('rebuyTimeChart'),{
+  type:'bar',
+  data:{
+    labels:['Biofeedback VFC','Freq. Binaurais','Nao-Invasiva','Curso TEA','Workshop TDAH','Neuromod. TDAH','Durma Bem'],
+    datasets:[{
+      label:'Dias ate recompra',
+      data:[17,46,95,92,101,214,236],
+      backgroundColor:function(ctx){const v=ctx.raw;return v<=30?'#22c55e':v<=60?'#06b6d4':v<=100?'#f59e0b':'#ef4444'},
+      borderRadius:6,borderSkipped:false
+    }]
+  },
+  options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' dias'}}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'},ticks:{callback:v=>v+'d'}},y:{grid:{display:false},ticks:{font:{size:11}}}}}
+});
+
+// 8. Volume Chart
+new Chart(document.getElementById('rebuyVolumeChart'),{
+  type:'bar',
+  data:{
+    labels:['Nao-Invasiva','Assinatura Voomp','Curso TEA','Freq. Binaurais','Grp WhatsApp','Workshop TDAH','Demo Aparelhos','Biofeedback VFC'],
+    datasets:[{
+      label:'Clientes que recompraram',
+      data:[95,62,54,41,30,28,28,22],
+      backgroundColor:'rgba(59,130,246,.7)',borderRadius:6,borderSkipped:false
+    },{
+      label:'Total compradores',
+      data:[513,289,300,243,30,87,30,24],
+      backgroundColor:'rgba(59,130,246,.15)',borderRadius:6,borderSkipped:false
+    }]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom',labels:{usePointStyle:true,font:{size:11}}}},scales:{y:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}
+});
+
+// 9. Revenue Chart
+new Chart(document.getElementById('revenueChart'),{
+  type:'doughnut',
+  data:{
+    labels:['Assinatura Voomp','Curso TEA','Freq. Binaurais','Workshop TDAH','Nao-Invasiva','Biofeedback VFC','Neuromod. TDAH','Durma Bem','Outros'],
+    datasets:[{
+      data:[471506,110253,75565,27686,16083,7128,6749,3937,10132],
+      backgroundColor:['#3b82f6','#8b5cf6','#06b6d4','#f59e0b','#10b981','#ef4444','#ec4899','#a78bfa','#64748b'],
+      borderWidth:0,hoverOffset:8
+    }]
+  },
+  options:{responsive:true,cutout:'50%',plugins:{legend:{position:'right',labels:{padding:8,usePointStyle:true,font:{size:10}}},tooltip:{callbacks:{label:c=>'R$ '+c.raw.toLocaleString('pt-BR')+' ('+(c.raw/729039*100).toFixed(1)+'%)'}}}}
+});
+
+// 10. Funnel Chart
+new Chart(document.getElementById('funnelChart'),{
+  type:'bar',
+  data:{
+    labels:['Nao-Inv. \u2192 Assin.','Nao-Inv. \u2192 TEA','Nao-Inv. \u2192 Binaurais','TEA \u2192 Workshop','Binaurais \u2192 TEA','VFC \u2192 Nao-Inv.','Nao-Inv. \u2192 Workshop','Binaurais \u2192 Assin.','TEA \u2192 Assinatura','Workshop \u2192 Nao-Inv.'],
     datasets:[{
       label:'Conversoes',
       data:[33,25,17,18,25,12,9,13,16,9],
@@ -958,7 +1259,7 @@ new Chart(funnelCtx,{
   options:{indexAxis:'y',responsive:true,plugins:{legend:{display:false}},scales:{x:{beginAtZero:true,grid:{color:'rgba(30,45,74,.3)'}},y:{grid:{display:false},ticks:{font:{size:10}}}}}
 });
 
-// 6. Flow Diagram
+// 11. Flow Diagram
 const flows = [
   {from:'Nao-Invasiva',to:'Assinatura Voomp',count:33,max:33},
   {from:'Nao-Invasiva',to:'Curso TEA',count:25,max:33},
@@ -977,7 +1278,7 @@ const colors = ['#3b82f6','#8b5cf6','#a78bfa','#f59e0b','#06b6d4','#60a5fa','#22
 const fc = document.getElementById('flow-container');
 flows.forEach((f,i) => {
   const pct = (f.count/f.max*100).toFixed(0);
-  fc.innerHTML += `<div class="flow-item"><span class="flow-from">${f.from}</span><span class="flow-arrow">&#10132;</span><span class="flow-to">${f.to}</span><div class="flow-bar"><div class="flow-fill" style="width:${pct}%;background:${colors[i%colors.length]}">${f.count}</div></div></div>`;
+  fc.innerHTML += '<div class="flow-item"><span class="flow-from">'+f.from+'</span><span class="flow-arrow">&#10132;</span><span class="flow-to">'+f.to+'</span><div class="flow-bar"><div class="flow-fill" style="width:'+pct+'%;background:'+colors[i%colors.length]+'">'+f.count+'</div></div></div>';
 });
 </script>
 </body>
